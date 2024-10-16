@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: name
+  namespace: default
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - yourdomain.here
+    secretName: my-tls
+  rules:
+  - host: yourdomain.here
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-moby
+            port:
+              number: 80
